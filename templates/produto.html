@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+
+{%  block css_adicional %}
+<link rel="stylesheet" href="static/css/produto.css">
+{% endblock %}
+
+{% block conteudo %}
+       <div class="product-container">
+    <div class="image-section">
+        <span class="heart-icon">♡</span>
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600" alt="Hambúrguer" class="main-img">
+        <div class="dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h1 class="product-title">Hambúrguer Classic Dev Gourmet 250g</h1>
+        <div class="sku">SKU # 100405</div>
+
+        <p class="description">
+            Experimente o <b>Classic Dev</b>, feito com pão brioche artesanal selado na manteiga, 
+            blend de carne bovina premium de 200g e queijo cheddar derretido. 
+            Uma opção robusta e suculenta para o seu código não dar erro!
+        </p>
+        <a href="#" class="more-details">VER MAIS DETALHES</a>
+
+        <div class="price-container">
+            <div class="old-price">R$ 32,00</div>
+            <div class="current-price">
+                R$ 25,00 <span class="unit">/un</span>
+            </div>
+        </div>
+
+        <div class="stock-alert">
+            <div class="stock-icon">📍</div>
+            <div class="stock-text">
+                <b>Sentimos Muito!</b>
+                <span>Produto fora da área de entrega para sua localização</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
