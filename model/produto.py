@@ -16,16 +16,23 @@ def recuperar():
 
         return produtos
 
-def rec_escol_rapida():
+def rec_destaq():
         conexao, cursor = conectar()
 
         cursor.execute("SELECT codigo, produto, descricao, destaque, preco, foto, disponibilidade FROM Produtos WHERE destaque = True;")
 
         produtos =  cursor.fetchall()
 
-        # fechar a conexão
+       # fechar a conexão
         conexao.close()
 
         return produtos
 
-        
+def rec_produto(codigo:int):  
+        conexao, cursor = conectar()
+        cursor.execute("""SELECT codigo, produto, descricao, destaque, preco, foto, disponibilidade FROM Produtos WHERE codigo = %s""", [codigo])
+
+        produto = cursor.fetchone()
+        conexao.close()
+
+        return produto
