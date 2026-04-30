@@ -1,8 +1,9 @@
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, jsonify
 from model.produto import recuperar
 from model.produto import rec_destaq
 from model.produto import rec_produto
 from model.usuario import Usuario
+from model.carrinho import recuperar_carrinho
 
 
 app = Flask(__name__)
@@ -39,10 +40,24 @@ def logar_usuario():
 
     resultado = Usuario.logar(usuario, senha)
 
-    if not resultado:
-        session["usuario_logado"]
+    if  resultado:
+        session["usuario_logado"] = resultado
+        return redirect("/")
+    else:
+        return "Usuario Incorreto"
 
-    return redirect("/")
+    
+
+@app.route("/api/get/carrinho", methods=["GET"])
+def api_get_carrinho():
+    usuario_logado = session.get("usuario_logado")
+
+    if "usuario_logado" in session:
+        usuario =session["usuario_logado"]["USUARIO"]
+        carrinho = recuperar_carrinho(usuario)
+        return jsonify(carrinho), 200
+    else:
+        return jsonify({"message": "Usuario não logado"}), 401
 
 @app.route("/cadastro_login")
 def cadastro_login():

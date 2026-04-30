@@ -1,30 +1,41 @@
-function mostrarCarrinho (){
-    const resposta =  await fetch("http://10.110.134.2:8080/api/get/carrinho:")
+async function mostrar_carrinho() {
+    try {
+        const resposta = await fetch("/api/get/carrinho");
 
-    if (!resposta.ok) {
-        alert("ERRO AO CARREGAR CARRINHO!")
-    }
-    else{
-        const dados = await resposta.json()
+        if (!resposta.ok) {
+            alert("ERRO AO CARREGAR CARRINHO!");
+            return;
+        }
 
-        const carrinho = document.getElementById('carrinho')
+        const dados = await resposta.json();
+        const carrinhoContainer = document.getElementById("carrinho");
+        carrinhoContainer.innerHTML = "";
 
-        carrinho.innerHTML = '';
+        let total = 0;
 
         for (let dado of dados) {
-            let linha = 
-            
-        `<div class="product-grid">
-            <div class="card">
-                <h3>${dado.nome}</h3>
-                <p>Pão, carne 160g e queijo.</p>
-                <span>${dado.preco}</span>
-                <button onclick="addToCart('Classic Burger', 25.00)">Adicionar</button>
-            </div>
-        </div>`
+            total += dado.preco;
 
-        carrinho.innerHTML += linha
+            let linha = `
+                <div class="cart-item">
+                    <img src="${dado.imagem}" alt="${dado.nome}" class="cart-item__image">
+                    <div class="cart-item__info">
+                        <div class="cart-item__top">
+                            <h3 class="cart-item__name">${dado.nome}</h3>
+                            <button class="remove-item-btn" title="remover item">🗑</button>
+                        </div>
+                        <div class="cart-item__bottom">
+                            <span class="cart-item__price">R$ ${dado.preco}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            carrinhoContainer.innerHTML += linha;
         }
+
+    } catch (erro) {
+        console.error(erro);
+        alert("Erro de rede ao carregar o carrinho.");
     }
 }
 
