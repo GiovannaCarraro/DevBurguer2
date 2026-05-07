@@ -8,30 +8,46 @@ async function mostrar_carrinho() {
         }
 
         const dados = await resposta.json();
-        const carrinhoContainer = document.getElementById("carrinho");
+
+        const carrinhoContainer = document.getElementById("cart-items");
+
         carrinhoContainer.innerHTML = "";
 
         let total = 0;
 
         for (let dado of dados) {
+
             total += dado.preco;
 
             let linha = `
-                <div class="cart-item">
+                <li class="cart-item">
                     <img src="${dado.imagem}" alt="${dado.nome}" class="cart-item__image">
+
                     <div class="cart-item__info">
+
                         <div class="cart-item__top">
                             <h3 class="cart-item__name">${dado.nome}</h3>
-                            <button class="remove-item-btn" title="remover item">🗑</button>
+
+                            <button class="remove-item-btn">
+                                🗑
+                            </button>
                         </div>
+
                         <div class="cart-item__bottom">
-                            <span class="cart-item__price">R$ ${dado.preco}</span>
+                            <span class="cart-item__price">
+                                R$ ${dado.preco}
+                            </span>
                         </div>
+
                     </div>
-                </div>
+                </li>
             `;
+
             carrinhoContainer.innerHTML += linha;
         }
+
+        document.getElementById("cart-total").innerText =
+            total.toFixed(2);
 
     } catch (erro) {
         console.error(erro);
@@ -39,4 +55,28 @@ async function mostrar_carrinho() {
     }
 }
 
-mostrarCarrinho()
+mostrar_carrinho();
+
+async function inserirItemCarrinho(cod_produto, quantidade = 1) {
+    const resposta = await fetch("/api/post/carrinho", 
+                                    {
+                                        method:"POST", 
+                                        headers: {"Content-Type" : "application/json"
+                                                },
+                                        body: JSON.stringify(
+                                                            {
+                                                                "cod_produto:":cod_produto,
+                                                                "quantidade": quantidade
+                                                            }
+                                        )
+                                    }
+                                    
+    )
+    
+    if(!resposta.OK)
+    {
+        alert("Erro ao inserir item!")
+    }
+
+    mostrar_carrinho()
+}

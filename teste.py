@@ -1,3 +1,3 @@
 from model.carrinho import inserir_item
 
-inserir_item("godothalya", 2, 4)
+inserir_item("nathalya", 2, 5)
