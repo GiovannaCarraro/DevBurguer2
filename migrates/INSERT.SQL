@@ -1,11 +1,70 @@
-SELECT CARRINHOS.COD_CARRINHO, USUARIOS.USUARIO, CARRINHOS.DATA, CARRINHOS.FINALIZADO, ITENS.PRODUTO, ITENS_CARRINHO.QUANTIDADE, ITENS.PRECO, ITENS.IMAGEM FROM CARRINHOS
-INNER JOIN ITENS_CARRINHO ON CARRINHOS.COD_CARRINHO = ITENS_CARRINHO.COD_CARRINHO
-INNER JOIN ITENS ON ITENS.CODIGO - ITENS_CARRINHO.COD_PRODUTO
-WHERE USUARIOS.USUARIOS = "GODOTHALYA";
+SELECT 
+    Carrinhos.COD_CARRINHO,
+    Usuarios.USUARIO,
+    Carrinhos.DATA,
+    Carrinhos.FINALIZADO,
+    Produtos.PRODUTO,
+    Itens_Carrinhos.QUANTIDADE,
+    Produtos.PRECO,
+    Produtos.FOTO
+FROM Carrinhos
 
-INSERT INTO `produtos`.`usuarios` (`USUARIO`, `SENHA`, `NOME`) VALUES ('nathalya ', '123', 'nathy');
-INSERT INTO `produtos`.`usuarios` (`USUARIO`, `SENHA`, `NOME`) VALUES ('godofredo', '1234', 'godosantos');
-INSERT INTO `produtos`.`usuarios` (`USUARIO`, `SENHA`, `NOME`) VALUES ('godothalya', '6969', 'godofredo');
+INNER JOIN Usuarios 
+    ON Usuarios.USUARIO = Carrinhos.USUARIO
 
-INSERT INTO `produtos`.`produtos` (`PRODUTO`, `DESCRICAO`, `PRECO`, `FOTO`) VALUES ('hamburguer 2', 'gostoso', '37.90', 'https://cloudfront-us-east-1.images.arcpublishing.com/estadao/77XTHHCCLBEXLC2Y5RK4PN37CE.jpg');
-INSERT INTO `produtos`.`produtos` (`PRODUTO`, `DESCRICAO`, `PRECO`, `FOTO`) VALUES ('hamburguer 3', 'muito bom', '56.90', 'https://www.seara.com.br/wp-content/uploads/2025/09/shutterstock_1489640750-1.jpg');
+INNER JOIN Itens_Carrinhos 
+    ON Carrinhos.COD_CARRINHO = Itens_Carrinhos.COD_CARRINHO
+
+INNER JOIN Produtos 
+    ON Produtos.CODIGO = Itens_Carrinhos.COD_PRODUTO
+
+WHERE Usuarios.USUARIO = 'godothalya';
+
+-- INSERTS USUÁRIOS
+INSERT INTO Usuarios (USUARIO, SENHA, NOME)
+VALUES ('nathalya', '123', 'nathy');
+
+INSERT INTO Usuarios (USUARIO, SENHA, NOME)
+VALUES ('godofredo', '1234', 'godosantos');
+
+INSERT INTO Usuarios (USUARIO, SENHA, NOME)
+VALUES ('godothalya', '6969', 'godofredo');
+
+
+INSERT INTO Produtos (PRODUTO, DESCRICAO, PRECO, FOTO)
+VALUES (
+    'hamburguer 2',
+    'gostoso',
+    37.90,
+    'https://cloudfront-us-east-1.images.arcpublishing.com/estadao/77XTHHCCLBEXLC2Y5RK4PN37CE.jpg'
+);
+
+INSERT INTO Produtos (PRODUTO, DESCRICAO, PRECO, FOTO)
+VALUES (
+    'hamburguer 3',
+    'muito bom',
+    56.90,
+    'https://www.seara.com.br/wp-content/uploads/2025/09/shutterstock_1489640750-1.jpg'
+);
+
+INSERT INTO Itens_Carrinhos (COD_CARRINHO, COD_PRODUTO, QUANTIDADE)
+VALUES (3, 1, 2);
+
+INSERT INTO Produtos 
+(PRODUTO, DESCRICAO, DESTAQUE, PRECO, FOTO, DISPONIBILIDADE)
+VALUES
+('X-Burguer', 'Hamburguer com queijo e molho especial', 1, 18.90, 'https://www.sabornamesa.com.br/media/k2/items/cache/bf26253d7b8f171dddb155f84ce1d562_XL.jpg', 1),
+
+('X-Salada', 'Hamburguer com queijo, alface e tomate', 2, 21.50, 'https://www.comidaereceitas.com.br/wp-content/uploads/2025/08/foto-cheese-salada-780x519.jpg', 1),
+
+('X-Bacon', 'Hamburguer com bacon crocante e cheddar', 2, 25.00, 'https://www.sabornamesa.com.br/media/k2/items/cache/5098e75e57e36807c173cb7490b1b0d2_XL.jpg', 2),
+
+('X-Tudo', 'Hamburguer completo com bacon, ovo e salada', 1, 32.90, 'https://alemaolanches.festzap.com.br/_core/_uploads//2022/05/111914052238abagj4gk.jpg', 1),
+
+('Batata Frita', 'Porção de batata frita crocante', 1, 14.00, 'https://jornalsemanario.com.br/wp-content/uploads/batatafrita1.jpg', 2),
+
+('Coca-Cola 2L', 'Refrigerante Coca-Cola 2 litros', 2, 12.00, 'https://img.cdndsgni.com/preview/11077304-m.jpg', true),
+
+('MilkShake Chocolate', 'Milkshake sabor chocolate', 1, 16.50, 'https://northernvirginiamag.com/wp-content/uploads/2022/08/milkshake.jpg', 2),
+
+('Hot Dog Especial', 'Cachorro quente com pure e batata palha', 2, 17.90, 'https://s2.glbimg.com/XQq5qXrTCA2t19Nnlo-sIa-ilH4=/620x455/e.glbimg.com/og/ed/f/original/2019/09/13/cachorro-quente-brasileiro.jpg', 2);

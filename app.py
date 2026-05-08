@@ -65,7 +65,7 @@ def api_get_carrinho():
 def api_post_carrinho():
 
    if "usuario_logado" in session:
-       usuario = session["usuario_logado"] ["usuario"]
+       usuario = session["usuario_logado"] ["USUARIO"]
        dados_json = request.get_json()
        codigo_produto = dados_json.get("cod_produto")
        quantidade = dados_json.get("quantidade")

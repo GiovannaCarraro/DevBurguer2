@@ -80,3 +80,19 @@ async function inserirItemCarrinho(cod_produto, quantidade = 1) {
 
     mostrar_carrinho()
 }
+
+function finalizarCompra() {
+  if (total <= 0) {
+    alert("Seu carrinho está vazio!");
+    return;
+  }
+
+  alert(`Compra finalizada! Total: R$ ${total.toFixed(2)}`);
+
+  // Limpar carrinho
+  document.getElementById("cart-items").innerHTML = "";
+  total = 0;
+  document.getElementById("total").innerText = "0.00";
+
+  fecharCarrinho();
+}
