@@ -49,10 +49,10 @@ def logar_usuario():
 
     
 
-@app.route("/api/get/carrinho", methods=["GET"])
+@app.route("/api/get/itens_carrinho", methods=["GET"])
 def api_get_carrinho():
-    usuario_logado = session.get("usuario_logado")
-
+    usuario_logado = session["usuario_logado"]
+    print(usuario_logado)
     if "usuario_logado" in session:
         usuario =session["usuario_logado"]["USUARIO"]
         carrinho = recuperar_carrinho(usuario)
@@ -67,8 +67,8 @@ def api_post_carrinho():
    if "usuario_logado" in session:
        usuario = session["usuario_logado"] ["USUARIO"]
        dados_json = request.get_json()
-       codigo_produto = dados_json.get("cod_produto")
-       quantidade = dados_json.get("quantidade")
+       codigo_produto = dados_json.get("COD_PRODUTO")
+       quantidade = dados_json.get("QUANTIDADE")
 
        inserir_item (usuario, codigo_produto, quantidade)
        return jsonify({"message":"Inserido com sucesso"}), 201

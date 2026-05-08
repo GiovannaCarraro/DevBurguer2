@@ -1,14 +1,14 @@
 async function mostrar_carrinho() {
     try {
-        const resposta = await fetch("/api/get/carrinho");
-
+        const resposta = await fetch("/api/get/itens_carrinho");
+        console.log(resposta)
         if (!resposta.ok) {
             alert("ERRO AO CARREGAR CARRINHO!");
             return;
         }
 
         const dados = await resposta.json();
-
+        console.log(dados)
         const carrinhoContainer = document.getElementById("cart-items");
 
         carrinhoContainer.innerHTML = "";
@@ -21,12 +21,11 @@ async function mostrar_carrinho() {
 
             let linha = `
                 <li class="cart-item">
-                    <img src="${dado.imagem}" alt="${dado.nome}" class="cart-item__image">
 
                     <div class="cart-item__info">
 
                         <div class="cart-item__top">
-                            <h3 class="cart-item__name">${dado.nome}</h3>
+                            <h3 class="cart-item__name">${dado.PRODUTO}</h3>
 
                             <button class="remove-item-btn">
                                 🗑
@@ -35,7 +34,7 @@ async function mostrar_carrinho() {
 
                         <div class="cart-item__bottom">
                             <span class="cart-item__price">
-                                R$ ${dado.preco}
+                                R$ ${dado.PRECO}
                             </span>
                         </div>
 

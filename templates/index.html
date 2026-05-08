@@ -172,10 +172,7 @@
               R$ {{ produto.preco }}
             </span>
 
-            <button class="add-cart" onclick="adicionarCarrinho(
-                '{{ produto.produto }}',
-                {{ produto.preco }}
-              )">
+            <button class="add-cart" onclick="mostrar_carrinho()">
               Comprar
             </button>
 
@@ -186,6 +183,7 @@
 
     </div>
   </div>
+  <script src="../static/css/js/carrinho.js"></script>
 </section>
 
 <script>
@@ -205,27 +203,8 @@
     carrinhoAbrir.style.display = '';
   }
 
-  function adicionarCarrinho(nome, preco) {
 
-    const cartItems = document.getElementById("cart-items");
 
-    const item = document.createElement("div");
-    item.classList.add("cart-item");
-
-    item.innerHTML = `
-      <h4>${nome}</h4>
-      <p>R$ ${preco.toFixed(2)}</p>
-    `;
-
-    cartItems.appendChild(item);
-
-    total += preco;
-
-    document.getElementById("total").innerText =
-      total.toFixed(2);
-
-    abrirCarrinho();
-  }
 
   function finalizarCompra() {
 
